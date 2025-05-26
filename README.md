@@ -1,1 +1,1 @@
-# testGit
+# Task for college assigment
