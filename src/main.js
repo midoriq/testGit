@@ -76,11 +76,9 @@ const createNewArticle = async (author, created_at, title, subtitle, content) =>
         apiKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmZGpkY2ltZHp2a2Fhampib2dyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTM3NTEsImV4cCI6MjA2MzIyOTc1MX0.znQ2LIAxgaEC2Y6gUVe3Wgrbjg7qnqdl-9snWrZ-P-0',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "author": author, "created_at": created_at, "title": title, "subtitle": subtitle, "content": content }),
+      body: JSON.stringify({ "author": author, "created_at": created_at, "title": title, "subtitle": subtitle, "content": content })
     });
     if (response.status !== 201) {
-      console.log(response)
-      console.log(await response.json())
       throw new Error(`Status: ${response.status}`);
     }
   } catch (error) {
@@ -118,4 +116,6 @@ document.getElementById("form").addEventListener('submit', (e) => {
   const created_date = new Date(parseISO(created_at));
   createNewArticle(author, created_date, title, subtitle, content);
   displayArticles();
+  document.getElementById("form").reset();
+
 })
