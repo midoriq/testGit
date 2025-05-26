@@ -16,10 +16,30 @@
     <option value="date-desc">Po dacie malejąco</option>
     <option value="title-asc">Po nazwie alfabetycznie</option>
   </select>
-  <h2>Articles:</h2>
+  <h1>Articles:</h1>
   <div id="articles">
 
   </div>
+
+  <form action="" id="form">
+    <h1>Dodaj artykuł:</h1>
+    <label for="title">Tytuł:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="subtitle">Podtytuł:</label>
+    <input type="text" id="subtitle" name="subtitle" required>
+
+    <label for="author">Autor:</label>
+    <input type="text" id="author" name="author" required>
+
+    <label for="content">Treść artykułu:</label>
+    <textarea id="content" name="content" rows="10" required></textarea>
+
+    <label for="created_at">Data utworzenia:</label>
+    <input type="date" id="created_at" name="created_at" required>
+
+    <input type="submit" value="Dodaj artykuł">
+  </form>
 
   <script type="module" src="/src/main.js"></script>
 </body>

@@ -55,8 +55,8 @@ const displayArticles = async () => {
     const creationDate = format(new Date(parseISO(article.created_at)), 'dd-MM-yyyy');
     articles_content.innerHTML += `
             <div>
-              <h1>${article.title}</h1>
-              <h2>${article.subtitle}</h2>
+              <h2>${article.title}</h2>
+              <h3>${article.subtitle}</h3>
               <p>Autor: ${article.author}</p>
               <p>Data: ${creationDate}</p>
               <p>${article.content}</p>
@@ -66,6 +66,27 @@ const displayArticles = async () => {
   });
 
 }
+
+const createNewArticle = async (author, created_at, title, subtitle, content) => {
+  try {
+    const response = await fetch(
+      'https://afdjdcimdzvkaajjbogr.supabase.co/rest/v1/article', {
+      method: 'POST',
+      headers: {
+        apiKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmZGpkY2ltZHp2a2Fhampib2dyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTM3NTEsImV4cCI6MjA2MzIyOTc1MX0.znQ2LIAxgaEC2Y6gUVe3Wgrbjg7qnqdl-9snWrZ-P-0',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "author": author, "created_at": created_at, "title": title, "subtitle": subtitle, "content": content }),
+    });
+    if (response.status !== 201) {
+      console.log(response)
+      console.log(await response.json())
+      throw new Error(`Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 displayArticles();
 
@@ -87,3 +108,14 @@ document.getElementById("sort").addEventListener('change', (e) => {
   displayArticles();
 })
 
+document.getElementById("form").addEventListener('submit', (e) => {
+  e.preventDefault();
+  const author = document.getElementById("author").value;
+  const title = document.getElementById("title").value;
+  const subtitle = document.getElementById("subtitle").value;
+  const content = document.getElementById("content").value;
+  const created_at = document.getElementById("created_at").value;
+  const created_date = new Date(parseISO(created_at));
+  createNewArticle(author, created_date, title, subtitle, content);
+  displayArticles();
+})
